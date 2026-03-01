@@ -1,0 +1,25 @@
+---
+- name: Set net.core.default_qdisc=fq
+  ansible.posix.sysctl:
+    name: net.core.default_qdisc
+    value: fq
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    reload: true
+
+- name: Set net.ipv4.tcp_congestion_control=bbr
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_congestion_control
+    value: bbr
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    reload: true
+
+- name: Verify BBR is active
+  ansible.builtin.command: sysctl net.ipv4.tcp_congestion_control
+  register: bbr_check
+  changed_when: false
+
+- name: Show BBR status
+  ansible.builtin.debug:
+    msg: "{{ bbr_check.stdout }}"

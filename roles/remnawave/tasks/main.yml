@@ -1,0 +1,72 @@
+---
+# pexpect нужен на удалённом хосте для модуля ansible.builtin.expect
+- name: Install python3-pexpect on remote host
+  ansible.builtin.package:
+    name: python3-pexpect
+    state: present
+
+# curl нужен для загрузки скрипта
+- name: Ensure curl is installed
+  ansible.builtin.package:
+    name: curl
+    state: present
+
+# Скачиваем скрипт локально на сервер, чтобы bash <(...) не ломал expect.
+# URL пинится на конкретный коммит + проверяется checksum.
+# Если авторы обновили скрипт — таска упадёт здесь, до запуска диалога.
+- name: Download remnawave install script (pinned commit)
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/eGamesAPI/remnawave-reverse-proxy/{{ remnawave_script_commit }}/install_remnawave.sh"
+    dest: /tmp/install_remnawave.sh
+    mode: "0755"
+    checksum: "{{ remnawave_script_sha256 }}"
+    force: true
+
+# Запускаем с expect — отвечаем на каждый промпт своим значением.
+# Порядок не важен: модуль ждёт совпадения любого паттерна в любой момент.
+- name: Run remnawave installer (interactive, auto-answer)
+  ansible.builtin.expect:
+    command: bash /tmp/install_remnawave.sh
+    timeout: "{{ remnawave_timeout }}"
+    responses:
+      # Выбор языка
+      "(?i)select language":
+        - "1"
+
+      # Главное меню (0-10) → выбираем Install (1)
+      "(?i)Install Remnawave Components":
+        - "1"
+
+      # Подменю установки (0-3)
+      "Install only the node":
+        - "4"
+
+      "Enter the selfsteal domain for the node":
+        - "{{ node_domain }}"
+
+      "Enter the IP address of the panel":
+        - "{{ panel_ip }}"      
+
+      "Enter the certificate obtained from the panel":
+        - "{{ node_certificate }}"
+
+      "Select certificate generation method for all domains":
+        - "2"
+
+      "Enter your email":
+        - "{{ admin_email }}"
+
+      # Любые подтверждения y/n
+      "\\(y/n\\)":
+        - "y"
+      "\\[y/N\\]":
+        - "y"
+      "\\[Y/n\\]":
+        - "y"
+  register: remnawave_install_result
+
+# Убираем временный файл
+- name: Remove installer script
+  ansible.builtin.file:
+    path: /tmp/install_remnawave.sh
+    state: absent

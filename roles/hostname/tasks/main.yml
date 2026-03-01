@@ -1,0 +1,16 @@
+---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ server_node }}-{{ server_location }}-{{ server_number }}"
+    use: systemd
+
+- name: Update /etc/hosts — 127.0.1.1 entry
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.1.1 {{ server_node }}-{{ server_location }}-{{ server_number }}"
+    state: present
+
+- name: Show new hostname
+  ansible.builtin.debug:
+    msg: "Hostname set to: {{ server_node }}-{{ server_location }}-{{ server_number }}"

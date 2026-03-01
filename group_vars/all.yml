@@ -1,0 +1,34 @@
+---
+# ============================================================
+# HOSTNAME  →  {{ server_node }}-{{ server_location }}-{{ server_number }}
+# ============================================================
+server_node:     "node5"
+server_location: "estonia"
+server_number:   "005"
+
+# ============================================================
+# REMNAWAVE
+# Install option: 1=panel+node, 2=только panel, 3=добавить node, 4=только node
+# ============================================================
+node_domain:                 "node5.mist.press"
+panel_ip:                    "87.121.221.25"
+node_certificate:            "eyJub2RlQ2VydFBlbSI6Ii0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLVxuTUlJQmd6Q0NBU3FnQXdJQkFnSUhBWGNqY0lBaGN6QUtCZ2dxaGtqT1BRUURBakFnTVI0d0hBWURWUVFEREJWMFxuWmtaWlltMURkREJ6YTE4NFNqQkdZbGRqT0Rjd0hoY05Nall3TXpBeE1UTXhNekl5V2hjTk1qa3dNekF4TVRNeFxuTXpJeVdqQTNNVFV3TXdZRFZRUURFeXhFT0U1bWIyZE9MVTUzWW5NMFlqZFZaSFptUkVwblUyaHJOMlpWTjNGSFxuTm5VNU1sUkZia0ZoVlVGRk1UQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJGOHd6U2RGK1pGdVxuaFpzWjAwTHVNcW1YQnpaNmpJMW1rVlJ1Wlg0TTJTKzJxdER0citoMkQyYm1vL0ZkSDhSd3Y3c0hKRStJOVdkblxuQnI4UW1jMEJGeldqT0RBMk1Bd0dBMVVkRXdFQi93UUNNQUF3RGdZRFZSMFBBUUgvQkFRREFnV2dNQllHQTFVZFxuSlFFQi93UU1NQW9HQ0NzR0FRVUZCd01CTUFvR0NDcUdTTTQ5QkFNQ0EwY0FNRVFDSUVJUEdMMUNlU2VPbWVoRlxuZ2FBUkE5WVk4YTljZUh5QjBXR05uSFh5bCtmaEFpQk9XTnlvYUVpL1kzcy9QOUlxV21hNEw4SUp4V1BzQkpLUVxuTndvbVZoZDNUQT09XG4tLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tIiwibm9kZUtleVBlbSI6Ii0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLVxuTUlHSEFnRUFNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQkcwd2F3SUJBUVFnM0pvU2xVaUQvSXhMcXJrclxueE9TRHJlOXdXYUNXR0ppcjZhT3dxbEdWcytpaFJBTkNBQVJmTU0wblJmbVJib1diR2ROQzdqS3Bsd2MyZW95TlxuWnBGVWJtVitETmt2dHFyUTdhL29kZzltNXFQeFhSL0VjTCs3QnlSUGlQVm5ad2EvRUpuTkFSYzFcbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0iLCJjYUNlcnRQZW0iOiItLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS1cbk1JSUJVRENCK0tBREFnRUNBZ0VCTUFvR0NDcUdTTTQ5QkFNQ01DQXhIakFjQmdOVkJBTU1GWFJtUmxsaWJVTjBcbk1ITnJYemhLTUVaaVYyTTROekFlRncweU5URXdNamN3TVRBME1UZGFGdzB6TlRFd01qY3dNVEEwTVRkYU1DQXhcbkhqQWNCZ05WQkFNTUZYUm1SbGxpYlVOME1ITnJYemhLTUVaaVYyTTROekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdcblNNNDlBd0VIQTBJQUJBYjE1ZHRwNzllQ3lnKzhFSE1QSEZvdHF5d2hTNFdZeWlVckwvT2tIdTZLc0JLckV1dUlcbm9LTXYwMHJUMU9QbnZtV3dnRWM3MkdVQWVlaG1KTWRRSGZHakl6QWhNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdcbkRnWURWUjBQQVFIL0JBUURBZ0tFTUFvR0NDcUdTTTQ5QkFNQ0EwY0FNRVFDSUhDeXk3blp5WmdmY3Zod1Rzajdcbm4rWTllS0NrdWFoeno3b3pua0dtTjRzV0FpQXkyM0llQWhFQzNJOTkyejVFY3RVdW9SZEpteVFFVHh0RXk3Sm5cbm5CY1FIdz09XG4tLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tIiwiand0UHVibGljS2V5IjoiLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS1cbk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBNzY3RTczN0E4REs5UC9DUGJwTGpcbmNTci84NE1ETVFIbC9iUFFRT2ZFWnhadGMxdTdVWHFlT1BuSlFUTlBGTlcvc2FYSTNzY05WQ1psOHI3NlNqQklcbnZlNG1LbzFmVWV3Rmpsc2h6bGRxb1NBU0txem9mcjdmb2dQRU1jUE5sRTkzWUdxb2p1dGUwMEtlWk96UWljZnBcblZjQUR5Nm5FNldjV0tmdDNnT3l1QWFDMXFQdUtJaU1xTHFYNzJSalBRbWtaY0xRNWpob29TY2xSM0k2dlFOdzlcbjkxV2N0UGY2RTAzS0Y3VlM5Z1NQNitFeThtdlZHZXlzUE1nNm9mb3BuR3NLYUJmZ2hVQ2hZckxOaHFlaGdKNjNcbmdDRURKMndMb2ZyWWRYVnhxa2c2U1FpbWErbXJ0WTF4anFJWDlpbndkRmtqRVVHUjVHOFUrNm5zbzZSK0xXdGxcbmR3SURBUUFCXG4tLS0tLUVORCBQVUJMSUMgS0VZLS0tLS1cbiJ9\n"
+remnawave_timeout:           60
+admin_email:                 "mistwork03@gmail.com"
+
+# ============================================================
+# SSH HARDENING
+# ============================================================
+ssh_user: "root"               # пользователь, которому кладём ключ
+ssh_public_key: |
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... your@key.here
+
+# ============================================================
+# FAIL2BAN
+# ============================================================
+fail2ban_bantime:  "1h"
+fail2ban_findtime: "10m"
+fail2ban_maxretry: 5
+fail2ban_ssh_port: 22
+
+

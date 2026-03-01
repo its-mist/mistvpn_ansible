@@ -1,0 +1,47 @@
+---
+# Язык: "1" = English, "2" = Русский
+remnawave_language: "1"
+
+# Что устанавливать:
+#   "1" = panel + node
+#   "2" = только panel
+#   "3" = добавить node к существующей panel
+#   "4" = только node
+remnawave_install_option: "1"
+
+# Домен для панели (должен уже указывать на этот сервер)
+remnawave_panel_domain: "panel.example.com"
+
+# Cloudflare API Token (или Global API Key)
+remnawave_cloudflare_token: "your_cloudflare_api_token_here"
+
+# Название ноды (произвольное)
+remnawave_node_name: "Germany"
+
+# Учётные данные администратора панели
+remnawave_admin_username: "admin"
+remnawave_admin_password: "SuperSecretPassword123!"
+
+# Таймаут ожидания каждого промпта (секунды)
+remnawave_timeout: 120
+
+# Домен ноды (selfsteal)
+node_domain: "node.example.com"
+
+# IP панели
+panel_ip: "1.2.3.4"
+
+# Сертификат ноды (base64, получается в панели)
+node_certificate: ""
+
+# Email для сертификата
+admin_email: "admin@example.com"
+
+# ---------------------------------------------------------------
+# Версия скрипта (пинним конкретный коммит)
+# Чтобы обновить: получи новый SHA и checksum:
+#   curl -s "https://api.github.com/repos/eGamesAPI/remnawave-reverse-proxy/commits?path=install_remnawave.sh&per_page=1" | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['sha'])"
+#   curl -Ls "https://raw.githubusercontent.com/eGamesAPI/remnawave-reverse-proxy/<NEW_SHA>/install_remnawave.sh" | sha256sum
+# ---------------------------------------------------------------
+remnawave_script_commit:  "f8ea2d616095db861b02fafb7455b9afaf0fd128"
+remnawave_script_sha256:  "sha256:109e80fa0a08f3b99b86e56312906ffcf592b2ddf42adf47a5af8797120a3f76"
