@@ -1,7 +1,7 @@
 # mistvpn_ansible
 
 Ansible-проект для первичной настройки VPN-серверов.
-Плейбук запускается **локально на самом сервере** (без управляющей машины).
+Плейбук запускается локально на самом сервере.
 
 ## Структура
 
@@ -11,12 +11,11 @@ mistvpn_ansible/
 ├── site.yml              # главный плейбук
 ├── inventory.ini         # localhost (local connection)
 ├── requirements.yml      # зависимости коллекций
-├── deploy_and_run.sh     # копирует проект на сервер и запускает там
 ├── group_vars/
 │   └── all.yml           # ВСЕ переменные здесь
 └── roles/
     ├── hostname/         # 1. меняем имя хоста
-    ├── ssh_hardening/    # 2. ключ + отключение пароля
+    ├── ssh_hardening/    # 2. ключ + отключение пароря
     ├── bbr/              # 3. включаем BBR
     ├── fail2ban/         # 4. ставим fail2ban
     └── remnawave/        # 5. устанавливаем ноду remnawave
@@ -24,28 +23,11 @@ mistvpn_ansible/
 
 ## Быстрый старт
 
-### С управляющей машины (рекомендуется)
-
-```bash
-# Настроить переменные, затем одной командой:
-./deploy_and_run.sh <IP сервера>
-
-# Или с тегами (только нужные роли):
-./deploy_and_run.sh <IP сервера> hostname,bbr
-```
-
-Скрипт сам:
-- Копирует проект на сервер в `/tmp/mistvpn_ansible`
-- Устанавливает Ansible, если его нет
-- Запускает `ansible-playbook` локально на сервере
-
-### Прямо на сервере
-
 ```bash
 # 1. Установить Ansible
 apt install -y ansible
 
-# 2. Клонировать/скопировать проект
+# 2. Клонировать проект
 git clone <repo> /tmp/mistvpn_ansible
 cd /tmp/mistvpn_ansible
 
