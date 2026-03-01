@@ -33,12 +33,12 @@
       "(?i)select language":
         - "1"
 
-      # Главное меню (0-10) → выбираем Install (1)
-      "(?i)Install Remnawave Components":
+      # Главное меню — матчим сам промпт, не текст пункта меню
+      "Select action \\(0-10\\)":
         - "1"
 
-      # Подменю установки (0-3)
-      "Install only the node":
+      # Подменю — матчим сам промпт ввода
+      "Select action \\(0-4\\)":
         - "4"
 
       "Enter the selfsteal domain for the node":
