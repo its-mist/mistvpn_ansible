@@ -1,6 +1,7 @@
 # mistvpn_ansible
 
 Ansible-проект для первичной настройки VPN-серверов.
+Плейбук запускается **локально на самом сервере** (без управляющей машины).
 
 ## Структура
 
@@ -8,8 +9,9 @@ Ansible-проект для первичной настройки VPN-серве
 mistvpn_ansible/
 ├── ansible.cfg
 ├── site.yml              # главный плейбук
-├── inventory.ini         # список серверов
+├── inventory.ini         # localhost (local connection)
 ├── requirements.yml      # зависимости коллекций
+├── deploy_and_run.sh     # копирует проект на сервер и запускает там
 ├── group_vars/
 │   └── all.yml           # ВСЕ переменные здесь
 └── roles/
@@ -22,17 +24,38 @@ mistvpn_ansible/
 
 ## Быстрый старт
 
-```bash
-# 1. Установить зависимости коллекций
-ansible-galaxy collection install -r requirements.yml
+### С управляющей машины (рекомендуется)
 
-# 2. Настроить переменные
+```bash
+# Настроить переменные, затем одной командой:
+./deploy_and_run.sh <IP сервера>
+
+# Или с тегами (только нужные роли):
+./deploy_and_run.sh <IP сервера> hostname,bbr
+```
+
+Скрипт сам:
+- Копирует проект на сервер в `/tmp/mistvpn_ansible`
+- Устанавливает Ansible, если его нет
+- Запускает `ansible-playbook` локально на сервере
+
+### Прямо на сервере
+
+```bash
+# 1. Установить Ansible
+apt install -y ansible
+
+# 2. Клонировать/скопировать проект
+git clone <repo> /tmp/mistvpn_ansible
+cd /tmp/mistvpn_ansible
+
+# 3. Установить зависимости коллекций
+ansible-galaxy install -r requirements.yml
+
+# 4. Настроить переменные
 nano group_vars/all.yml
 
-# 3. Добавить серверы в инвентарь
-nano inventory.ini
-
-# 4. Запустить всё
+# 5. Запустить всё
 ansible-playbook site.yml
 
 # Или только отдельные роли (теги):
