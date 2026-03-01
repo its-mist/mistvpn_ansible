@@ -1,18 +1,15 @@
 ---
-# pexpect нужен на удалённом хосте для модуля ansible.builtin.expect
-- name: Install python3-pexpect on remote host
-  ansible.builtin.package:
-    name: python3-pexpect
-    state: present
-
-# curl нужен для загрузки скрипта
 - name: Ensure curl is installed
   ansible.builtin.package:
     name: curl
     state: present
 
-# Скачиваем скрипт локально на сервер, чтобы bash <(...) не ломал expect.
-# URL пинится на конкретный коммит + проверяется checksum.
+- name: Install expect utility
+  ansible.builtin.package:
+    name: expect
+    state: present
+
+# Скачиваем скрипт, пинним конкретный коммит + проверяем checksum.
 # Если авторы обновили скрипт — таска упадёт здесь, до запуска диалога.
 - name: Download remnawave install script (pinned commit)
   ansible.builtin.get_url:
@@ -22,51 +19,29 @@
     checksum: "{{ remnawave_script_sha256 }}"
     force: true
 
-# Запускаем с expect — отвечаем на каждый промпт своим значением.
-# Порядок не важен: модуль ждёт совпадения любого паттерна в любой момент.
-- name: Run remnawave installer (interactive, auto-answer)
-  ansible.builtin.expect:
-    command: env TERM=xterm bash /tmp/install_remnawave.sh
-    timeout: "{{ remnawave_timeout }}"
-    responses:
-      # Выбор языка
-      "(?i)select language":
-        - "1"
+# Генерируем expect-скрипт из шаблона (подставляем переменные)
+- name: Deploy expect script from template
+  ansible.builtin.template:
+    src: install_expect.j2
+    dest: /tmp/install_remnawave_expect.sh
+    mode: "0755"
 
-      # Главное меню — матчим сам промпт, не текст пункта меню
-      "Select action \\(0-10\\)":
-        - "1"
-
-      # Подменю — матчим сам промпт ввода
-      "Select action \\(0-3\\)":
-        - "4"
-
-      "Enter the selfsteal domain for the node":
-        - "{{ node_domain }}"
-
-      "Enter the IP address of the panel":
-        - "{{ panel_ip }}"      
-
-      "press Enter twice":
-        - "{{ node_certificate }}"
-
-      "Select certificate generation method for all domains":
-        - "2"
-
-      "Enter your email":
-        - "{{ admin_email }}"
-
-      # Любые подтверждения y/n
-      "\\(y/n\\)":
-        - "y"
-      "\\[y/N\\]":
-        - "y"
-      "\\[Y/n\\]":
-        - "y"
+# Запускаем через системный expect — он надёжнее pexpect-модуля
+- name: Run remnawave installer via expect
+  ansible.builtin.shell: /tmp/install_remnawave_expect.sh
   register: remnawave_install_result
+  no_log: true
 
-# Убираем временный файл
-- name: Remove installer script
+- name: Show installer result
+  ansible.builtin.debug:
+    msg: "Remnawave installed. Panel: https://{{ node_domain }}"
+  when: remnawave_install_result.rc == 0
+
+# Убираем временные файлы
+- name: Remove installer files
   ansible.builtin.file:
-    path: /tmp/install_remnawave.sh
+    path: "{{ item }}"
     state: absent
+  loop:
+    - /tmp/install_remnawave.sh
+    - /tmp/install_remnawave_expect.sh
