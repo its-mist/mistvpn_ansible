@@ -28,21 +28,17 @@ send "{{ node_certificate }}\r"
 expect "sure the certificate is correct"
 send "y\r"
 
-# Метод генерации сертификата
-expect "certificate generation method"
-send "2\r"
-
-# Email
-expect "your email"
-send "{{ admin_email }}\r"
-
-# Любые y/n подтверждения и ожидание завершения
+# Дальнейшие промпты опциональны — зависят от состояния системы
+# (cert generation пропускается если сертификат уже есть и т.д.)
 expect {
-    "(y/n)" { send "y\r"; exp_continue }
-    "(y/N)" { send "y\r"; exp_continue }
-    "(Y/n)" { send "y\r"; exp_continue }
-    "\[y/N\]" { send "y\r"; exp_continue }
-    "\[Y/n\]" { send "y\r"; exp_continue }
-    timeout   { exit 1 }
-    eof       { exit 0 }
+    "certificate generation method" { send "2\r";                   exp_continue }
+    "your email"                    { send "{{ admin_email }}\r";   exp_continue }
+    "(y/n)"                         { send "y\r";                   exp_continue }
+    "(y/N)"                         { send "y\r";                   exp_continue }
+    "(Y/n)"                         { send "y\r";                   exp_continue }
+    "\[y/N\]"                       { send "y\r";                   exp_continue }
+    "\[Y/n\]"                       { send "y\r";                   exp_continue }
+    "Node successfully launched"    { exit 0 }
+    timeout                         { exit 1 }
+    eof                             { exit 0 }
 }
