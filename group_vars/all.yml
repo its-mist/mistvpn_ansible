@@ -21,7 +21,7 @@ admin_email:                 "mistwork03@gmail.com"
 # ============================================================
 ssh_user: "root"               # пользователь, которому кладём ключ
 ssh_public_key: |
-  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... your@key.here
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILXNsfxI/ETSMAh/2kBFAhJv6atFA1FWCMlHCerwjP9v mist@DESKTOP-MHS7F2K
 
 # ============================================================
 # FAIL2BAN
