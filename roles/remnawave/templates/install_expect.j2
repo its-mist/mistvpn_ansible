@@ -24,6 +24,10 @@ send "{{ panel_ip }}\r"
 expect "press Enter twice"
 send "{{ node_certificate }}\r"
 
+# Подтверждение сертификата
+expect "sure the certificate is correct"
+send "y\r"
+
 # Метод генерации сертификата
 expect "certificate generation method"
 send "2\r"
@@ -32,9 +36,11 @@ send "2\r"
 expect "your email"
 send "{{ admin_email }}\r"
 
-# Любые y/n подтверждения до конца
+# Любые y/n подтверждения и ожидание завершения
 expect {
     "(y/n)" { send "y\r"; exp_continue }
+    "(y/N)" { send "y\r"; exp_continue }
+    "(Y/n)" { send "y\r"; exp_continue }
     "\[y/N\]" { send "y\r"; exp_continue }
     "\[Y/n\]" { send "y\r"; exp_continue }
     timeout   { exit 1 }
