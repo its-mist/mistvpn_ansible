@@ -30,12 +30,14 @@
 - name: Run remnawave installer via expect
   ansible.builtin.shell: /tmp/install_remnawave_expect.sh
   register: remnawave_install_result
-  no_log: true
 
-- name: Show installer result
+- name: Show installer stdout
   ansible.builtin.debug:
-    msg: "Remnawave installed. Panel: https://{{ node_domain }}"
-  when: remnawave_install_result.rc == 0
+    var: remnawave_install_result.stdout_lines
+
+- name: Show installer stderr
+  ansible.builtin.debug:
+    var: remnawave_install_result.stderr_lines
 
 # Убираем временные файлы
 - name: Remove installer files
