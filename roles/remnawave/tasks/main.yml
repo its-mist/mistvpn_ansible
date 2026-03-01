@@ -47,7 +47,7 @@
       "Enter the IP address of the panel":
         - "{{ panel_ip }}"      
 
-      "Enter the certificate obtained from the panel":
+      "press Enter twice":
         - "{{ node_certificate }}"
 
       "Select certificate generation method for all domains":

@@ -23,7 +23,7 @@ remnawave_admin_username: "admin"
 remnawave_admin_password: "SuperSecretPassword123!"
 
 # Таймаут ожидания каждого промпта (секунды)
-remnawave_timeout: 120
+remnawave_timeout: 300
 
 # Домен ноды (selfsteal)
 node_domain: "node.example.com"
