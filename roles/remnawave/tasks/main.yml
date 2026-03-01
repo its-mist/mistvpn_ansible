@@ -38,7 +38,7 @@
         - "1"
 
       # Подменю — матчим сам промпт ввода
-      "Select action \\(0-4\\)":
+      "Select action \\(0-3\\)":
         - "4"
 
       "Enter the selfsteal domain for the node":
