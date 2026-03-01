@@ -26,7 +26,7 @@
 # Порядок не важен: модуль ждёт совпадения любого паттерна в любой момент.
 - name: Run remnawave installer (interactive, auto-answer)
   ansible.builtin.expect:
-    command: bash /tmp/install_remnawave.sh
+    command: env TERM=xterm bash /tmp/install_remnawave.sh
     timeout: "{{ remnawave_timeout }}"
     responses:
       # Выбор языка
