@@ -20,9 +20,9 @@ send "{{ node_domain }}\r"
 expect "IP address of the panel"
 send "{{ panel_ip }}\r"
 
-# Сертификат (скрипт ждёт два Enter — \n в конце переменной + \r ниже)
+# Сертификат — два Enter: один после содержимого, второй пустой
 expect "press Enter twice"
-send "{{ node_certificate | trim }}\r"
+send "{{ node_certificate | trim }}\r\r"
 
 # Подтверждение сертификата
 expect "sure the certificate is correct"
