@@ -19,17 +19,6 @@
     checksum: "{{ remnawave_script_sha256 }}"
     force: true
 
-# Ookla Speedtest CLI не поддерживает Ubuntu 24.04 Noble — репо возвращает 404,
-# из-за чего apt-get update падает и Docker не устанавливается.
-# Удаляем сломанный репозиторий перед запуском инсталлера.
-- name: Remove broken Ookla Speedtest CLI apt repository
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - /etc/apt/sources.list.d/ookla_speedtest-cli.list
-    - /etc/apt/sources.list.d/ookla-speedtest-cli.list
-
 # Генерируем expect-скрипт из шаблона (подставляем переменные)
 - name: Deploy expect script from template
   ansible.builtin.template:
