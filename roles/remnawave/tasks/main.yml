@@ -27,8 +27,9 @@
     mode: "0755"
 
 # Запускаем через системный expect — он надёжнее pexpect-модуля
+# Лог пишется в /tmp/remnawave_install.log — можно следить: tail -f /tmp/remnawave_install.log
 - name: Run remnawave installer via expect
-  ansible.builtin.shell: /tmp/install_remnawave_expect.sh
+  ansible.builtin.shell: /tmp/install_remnawave_expect.sh 2>&1 | tee /tmp/remnawave_install.log
   register: remnawave_install_result
   failed_when:
     - remnawave_install_result.rc != 0
@@ -47,3 +48,4 @@
   loop:
     - /tmp/install_remnawave.sh
     - /tmp/install_remnawave_expect.sh
+    - /tmp/remnawave_install.log
