@@ -19,6 +19,12 @@
     checksum: "{{ remnawave_script_sha256 }}"
     force: true
 
+# Чистим лог прошлого запуска, если есть
+- name: Remove previous install log
+  ansible.builtin.file:
+    path: /tmp/remnawave_install.log
+    state: absent
+
 # Генерируем expect-скрипт из шаблона (подставляем переменные)
 - name: Deploy expect script from template
   ansible.builtin.template:
