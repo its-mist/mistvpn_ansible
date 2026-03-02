@@ -48,4 +48,3 @@
   loop:
     - /tmp/install_remnawave.sh
     - /tmp/install_remnawave_expect.sh
-    - /tmp/remnawave_install.log
