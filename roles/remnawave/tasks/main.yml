@@ -33,7 +33,7 @@
   failed_when:
     - remnawave_install_result.rc != 0
     - "'Node successfully launched' not in remnawave_install_result.stdout"
-  no_log: true
+  no_log: false
 
 - name: Show installer result
   ansible.builtin.debug:
